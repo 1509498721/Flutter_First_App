@@ -1,52 +1,80 @@
 class VersionModel {
-  String createTime;
-  String updateTime;
-  String apkUrl;
-  int appId;
-  int id;
-  int type;
-  String upgradePrompt;
-  String versionCode;
-  String versionId;
+  String code;
+  String msg;
+  int time;
+  List<Items> items;
 
-  VersionModel(
-      {this.createTime,
-        this.updateTime,
-        this.apkUrl,
-        this.appId,
-        this.id,
-        this.type,
-        this.upgradePrompt,
-        this.versionCode,
-        this.versionId});
+  VersionModel({this.code, this.msg, this.time, this.items});
 
   VersionModel.fromJson(Map<String, dynamic> json) {
-    createTime = json['CreateTime'];
-    updateTime = json['UpdateTime'];
-    apkUrl = json['apkUrl'];
-    appId = json['appId'];
-    createTime = json['createTime'];
-    id = json['id'];
-    type = json['type'];
-    updateTime = json['updateTime'];
-    upgradePrompt = json['upgradePrompt'];
-    versionCode = json['versionCode'];
-    versionId = json['versionId'];
+    code = json['code'];
+    msg = json['msg'];
+    time = json['time'];
+    if (json['items'] != null) {
+      items = new List<Items>();
+      json['items'].forEach((v) {
+        items.add(new Items.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['CreateTime'] = this.createTime;
-    data['UpdateTime'] = this.updateTime;
-    data['apkUrl'] = this.apkUrl;
-    data['appId'] = this.appId;
-    data['createTime'] = this.createTime;
+    data['code'] = this.code;
+    data['msg'] = this.msg;
+    data['time'] = this.time;
+    if (this.items != null) {
+      data['items'] = this.items.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Items {
+  int id;
+  int type;
+  String createTime;
+  int updateTime;
+  int appId;
+  String versionId;
+  int versionCode;
+  String apkUrl;
+  String upgradePrompt;
+
+  Items(
+      {this.id,
+        this.type,
+        this.createTime,
+        this.updateTime,
+        this.appId,
+        this.versionId,
+        this.versionCode,
+        this.apkUrl,
+        this.upgradePrompt});
+
+  Items.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    type = json['type'];
+    createTime = json['createTime'];
+    updateTime = json['updateTime'];
+    appId = json['appId'];
+    versionId = json['versionId'];
+    versionCode = json['versionCode'];
+    apkUrl = json['apkUrl'];
+    upgradePrompt = json['upgradePrompt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['type'] = this.type;
+    data['createTime'] = this.createTime;
     data['updateTime'] = this.updateTime;
-    data['upgradePrompt'] = this.upgradePrompt;
-    data['versionCode'] = this.versionCode;
+    data['appId'] = this.appId;
     data['versionId'] = this.versionId;
+    data['versionCode'] = this.versionCode;
+    data['apkUrl'] = this.apkUrl;
+    data['upgradePrompt'] = this.upgradePrompt;
     return data;
   }
 }

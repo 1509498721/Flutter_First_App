@@ -9,8 +9,8 @@ import 'package:the_fish_fly/model/classification_model.dart';
 import 'package:the_fish_fly/model/home_screen_model.dart';
 import 'package:the_fish_fly/model/paging_model.dart';
 import 'package:the_fish_fly/model/screen_model.dart';
+import 'package:the_fish_fly/model/versionup_model.dart';
 import 'package:the_fish_fly/page_centre/home_nav/advertising_nav.dart';
-import 'package:the_fish_fly/page_centre/home_nav/advertising_up_nav.dart';
 import 'package:the_fish_fly/page_centre/home_nav/local_nav.dart';
 import 'package:the_fish_fly/page_centre/home_nav/paging_nav.dart';
 import 'package:the_fish_fly/page_centre/home_nav/screen/screen_more_nav.dart';
@@ -127,10 +127,29 @@ class _FishHomePageState extends State<FishHomePage>
       _loading = false;
     }
   }
+  void _version() async{
 
+    try {
+      Map<String, dynamic> resJson;
+      final res = await HttpUtil.getInstance().post(CommonCode.POST_VERSION_SELECTDETAIL, data: {"appId": 1});
+      if (res is String) {
+        resJson = json.decode(res);
+      } else if (res is Map<String, dynamic>) {
+        resJson = res;
+      } else {
+        throw DioError(message: '数据解析错误');
+      }
+      var modelData = VersionModel.fromJson(resJson);
+      print("aaaa"+modelData.items[0].apkUrl);
+    } catch (e) {
+      print("-----" + e.toString());
+    }
+
+  }
   @override
   void initState() {
     super.initState();
+   // _version();
     //头部的四个按钮
     _initTopFourBut();
     //首页广告位

@@ -71,7 +71,6 @@ void _version() async{
       throw DioError(message: '数据解析错误');
     }
     var modelData = VersionModel.fromJson(resJson);
-    print("-----------"+modelData.apkUrl);
   } catch (e) {
     print("-----" + e.toString());
   }
