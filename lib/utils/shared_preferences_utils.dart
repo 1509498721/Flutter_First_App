@@ -7,10 +7,12 @@ class Sp {
 
   static setLoginMessage(LoginModel modelData) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-     preferences.setString(CommonCode.My_TOKENT,(null==modelData.token)?"":"Bearer " +modelData.token);
-     preferences.setString(CommonCode.USER_NAME,(null==modelData.items[0].title)?"":modelData.items[0].title);
-     preferences.setString(CommonCode.USER_HEAD,(null==modelData.items[0].img)?"":modelData.items[0].img);
-     preferences.setString(CommonCode.USER_PHONE,(null==modelData.items[0].phone)?"":modelData.items[0].phone);
+     preferences.setString(CommonCode.My_TOKENT,(null==modelData.token)?null:"Bearer " +modelData.token.toString());
+     preferences.setString(CommonCode.USER_NAME,(null==modelData.items[0].title)?null:modelData.items[0].title.toString());
+     preferences.setString(CommonCode.USER_HEAD,(null==modelData.items[0].img)?null:modelData.items[0].img.toString());
+     preferences.setString(CommonCode.USER_PHONE,(null==modelData.items[0].phone)?null:modelData.items[0].phone.toString());
+     preferences.setString(CommonCode.USER_ID,(null==modelData.items[0].id)?null:modelData.items[0].id.toString());
+     preferences.setString(CommonCode.USER_SOURCE,(null==modelData.items[0].frendSource)?null:modelData.items[0].frendSource.toString());
   }
 
 
@@ -20,15 +22,19 @@ class Sp {
      preferences.setString(CommonCode.USER_NAME,null);
      preferences.setString(CommonCode.USER_HEAD,null);
      preferences.setString(CommonCode.USER_PHONE,null);
+     preferences.setString(CommonCode.USER_ID,null);
+     preferences.setString(CommonCode.USER_SOURCE,null);
+
   }
 
   static userMessageInput() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
     CommonCode.My_TOKENTInfo=preferences.getString(CommonCode.My_TOKENT);
     CommonCode.USER_NAMEInfo=preferences.getString(CommonCode.USER_NAME);
     CommonCode.USER_PHONEInfo=preferences.getString(CommonCode.USER_PHONE);
     CommonCode.USER_HEADInfo=preferences.getString(CommonCode.USER_HEAD);
+    CommonCode.USER_IDInfo=preferences.getString(CommonCode.USER_ID);
+    CommonCode.USER_SOURCEInfo=preferences.getString(CommonCode.USER_SOURCE);
   }
 
 }

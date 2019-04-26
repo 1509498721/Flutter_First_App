@@ -52,11 +52,6 @@ flutter:
     - images/banner1.jpg
     - images/banner2.jpg
     - images/banner3.jpg
-    - images/main_item_active.png
-    - images/main_item_default.png
-    - images/my_item_active.png
-    - images/my_item_default.png
-    - images/loading_app_img_new.png
     - images/index_view_topright_new.png
     - images/home_search_glass_new.png
     - images/item_title_1_new.png
@@ -74,6 +69,10 @@ flutter:
     - images/mine_cooperation_new.png
     - images/mine_server_but_new.png
     - images/item_bom.png
+    - images/loading_app.png
+    - images/qidong_lc.png
+    - images/main_advertising.png
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

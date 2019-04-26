@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:the_fish_fly/common/common_code.dart';
 import 'package:the_fish_fly/model/advertising_model.dart';
+import 'package:the_fish_fly/page_centre/login_page.dart';
 import 'package:the_fish_fly/utils/color_utils.dart';
 import 'package:the_fish_fly/widget/web_view.dart';
 
@@ -11,10 +13,19 @@ class AdvertisingNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 16, right: 16, top: 16),
-      child: _views(context),
-    );
+    return Stack(children: <Widget>[
+      Container(
+        padding: EdgeInsets.only(left: 16, right: 16, top: 5),
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              color: ColorUtils.gradientEnd13Color,
+              offset: Offset(3.0, 3.0),
+              blurRadius: 5.0,
+              spreadRadius: 1.0)
+        ]),
+        child: _views(context),
+      )
+    ],);
   }
 
   _views(BuildContext context) {
@@ -25,8 +36,8 @@ class AdvertisingNav extends StatelessWidget {
     });
     return Container(
       decoration: BoxDecoration(
-          color: ColorUtils.appTabNavigator,
-          borderRadius: BorderRadius.circular(4)),
+          borderRadius: BorderRadius.circular(4),
+          color: ColorUtils.appWhiteColor),
       child: items,
     );
   }
@@ -50,8 +61,7 @@ class AdvertisingNav extends StatelessWidget {
                   padding: EdgeInsets.only(left: 8),
                   child: Text(
                     mode.title,
-                    style: TextStyle(
-                        color: ColorUtils.appMain2TextColor, fontSize: 14),
+                    style: TextStyle(fontSize: 12),
                   ),
                 ),
                 Expanded(
@@ -62,59 +72,78 @@ class AdvertisingNav extends StatelessWidget {
                   mode.uv.toString() + "人申请",
                   textAlign: TextAlign.right,
                   style: TextStyle(
-                      color: ColorUtils.appMain2TextColor, fontSize: 14),
+                      color: ColorUtils.appTopAdvertisingTextColor,
+                      fontSize: 12),
                 ),
               ],
             ),
-          ),
-          Container(
-            color: ColorUtils.appMainFragmentBacColor,
-            height: 1,
           ),
           Stack(
             children: <Widget>[
               Column(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(top: 8),
+                    padding: EdgeInsets.only(top: 4),
                     child: Text(
                       '最高额度(元）',
                       style: TextStyle(
-                          color: ColorUtils.appMain2TextColor, fontSize: 12),
+                          color: ColorUtils.appTopAdvertisingTextColor,
+                          fontSize: 12),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 12),
+                    padding: EdgeInsets.only(top: 6),
                     child: Text(
                       _getComma(mode.limit),
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
-                          color: ColorUtils.appWhiteColor,
-                          fontSize: 36),
+                          color: ColorUtils.appTopAdvertisingMainTextColor,
+                          fontSize: 32),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.only(top: 12, left: 24, right: 24),
-                    height: 38,
-                    //充满
-                    width: double.infinity,
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.push(
+                  Padding(
+                    padding: EdgeInsets.only(right: 64, left: 64, top: 8),
+                    child: GestureDetector(
+                      onTap: () {
+
+                        CommonCode.My_TOKENTInfo == null
+                            ? Navigator.push(
+                          context,
+                          new MaterialPageRoute(builder: (context) => LoginPage()),
+                        )
+                            : Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => WebView(
-                                      url: mode.shortUrl,
-                                      title: mode.title,
-                                    )));
+                                  url: CommonCode.BASE_URL +
+                                      'Supermarke/' +
+                                      mode.goodsSource +
+                                      "?id=" +
+                                      CommonCode.USER_IDInfo +
+                                      "&frendSource=" +
+                                      CommonCode.USER_SOURCEInfo,
+                                  title: mode.title,
+                                )));
+
                       },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      color: ColorUtils.appHomeAdvertisingColor,
-                      child: Text(
-                        "立即申请",
-                        style: TextStyle(
-                            color: ColorUtils.appWhiteColor, fontSize: 14),
+                      child: Container(
+                        height: 32,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(
+                                colors: [
+                                  ColorUtils.gradientStartColor,
+                                  ColorUtils.gradientEndColor
+                                ],
+                                begin: FractionalOffset(1, 0),
+                                end: FractionalOffset(0, 1))),
+                        child: Center(
+                          child: Text(
+                            "只需三步,立即拿钱",
+                            style: TextStyle(
+                                color: ColorUtils.appWhiteColor, fontSize: 12,),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -127,7 +156,6 @@ class AdvertisingNav extends StatelessWidget {
                   alignment: FractionalOffset.centerRight,
                   child: Image.asset(
                     'images/index_view_topright_new.png',
-                    height: 55,
                   )),
             ],
           )

@@ -51,25 +51,27 @@ class LoginItemsModel {
   String email;
   String businessLicense;
   String authenticationMessage;
+  String frendSource;
 
   LoginItemsModel(
       {this.id,
-        this.title,
-        this.phone,
-        this.pwd,
-        this.level,
-        this.img,
-        this.addTime,
-        this.loginTime,
-        this.loginIp,
-        this.registeredSource,
-        this.adminId,
-        this.authenticationStatus,
-        this.enterpriseName,
-        this.idNumber,
-        this.email,
-        this.businessLicense,
-        this.authenticationMessage});
+      this.title,
+      this.phone,
+      this.pwd,
+      this.level,
+      this.img,
+      this.addTime,
+      this.loginTime,
+      this.loginIp,
+      this.registeredSource,
+      this.adminId,
+      this.authenticationStatus,
+      this.enterpriseName,
+      this.idNumber,
+      this.email,
+      this.businessLicense,
+      this.authenticationMessage,
+      this.frendSource});
 
   LoginItemsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -88,6 +90,7 @@ class LoginItemsModel {
     idNumber = json['idNumber'];
     email = json['email'];
     businessLicense = json['businessLicense'];
+    frendSource=json['frendSource'];
     authenticationMessage = json['authenticationMessage'];
   }
 
@@ -113,4 +116,3 @@ class LoginItemsModel {
     return data;
   }
 }
-

@@ -6,7 +6,7 @@ import 'package:the_fish_fly/model/screen_model.dart';
 class CommonCode {
   static final String VERSIONS_CODE = "1.0.0";
   static final int SUCCESS_CODE = 200;
-  static final String BASE_URL = "http://yef.miaojiedao.cn/"; //baseUrl
+  static final String BASE_URL = "http://yuerfei.miaojiedao.cn/"; //baseUrl
   static final String UPDATE_APP = "https://raw.githubusercontent.com/AriesHoo/FastLib/master/apk/___"; //查询APP是否有最新版本
   static final String POST_GET_GOOD_LIST = "Goods/getGoodsList"; //查询产品信息
   static final String POST_GET_PHONE_SMS = "admin/smsPhone"; //获取验证码
@@ -21,18 +21,23 @@ class CommonCode {
   static final String POST_PAGE_SELECTDETAIL = "goodsDetail/selectDetail"; //商品详情
   static final String POST_VERSION_SELECTDETAIL = "versionUpgrade/selectVersion"; //商品详情
 
-
+  static final String POST_GET_WEIXIN = "APP/getWeixin"; //获取微信公众号
+  static final String POST_GET_QQ = "APP/getQQ"; //获取QQ客服
 
   static final String My_TOKENT='myToken';
   static final String USER_NAME='myName';
   static final String USER_PHONE='myPhone';
   static final String USER_HEAD='myHead';
+  static final String USER_ID='myId';
+  static final String USER_SOURCE='mySource';
 
 
   static  String My_TOKENTInfo="";
   static  String USER_NAMEInfo="";
   static  String USER_PHONEInfo="";
   static  String USER_HEADInfo="";
+  static  String USER_IDInfo="";
+  static  String USER_SOURCEInfo="";
 
   static  ScreenModel screenModel;  //筛选
   static  List<HomeScreem> homeScreem;  //筛选

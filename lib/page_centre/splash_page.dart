@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:the_fish_fly/common/common_code.dart';
 import 'package:the_fish_fly/model/versionup_model.dart';
 import 'package:the_fish_fly/text_centre/set_text_init.dart';
-import 'package:the_fish_fly/utils/color_utils.dart';
 import 'package:the_fish_fly/utils/dio_utils.dart';
 import 'package:the_fish_fly/utils/get_phone_message.dart';
 import 'dart:async';
@@ -20,7 +19,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   Timer _timerPeriodic;
-  int count = 2;
+  int count = 1;
 
   @override
   void initState() {
@@ -45,13 +44,8 @@ class _SplashPageState extends State<SplashPage> {
     //设置状态栏高度
    PhoneMessage.statusBarHeight = MediaQuery.of(context).padding.top;
 //    PhoneMessage.statusBarHeight =0;
-    _initAppData();
-
-    return Container(
-        color: ColorUtils.appBac,
-        child: Center(
-          child: Image.asset('images/loading_app_img_new.png'),
-        ));
+//    _initAppData();
+    return Image.asset('images/loading_app.png',fit: BoxFit.fill,);
   }
 
   void _goLogin() {

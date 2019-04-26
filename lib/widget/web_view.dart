@@ -87,7 +87,7 @@ class _WebViewState extends State<WebView> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          _appBar(ColorUtils.appTabNavigator),
+          _appBar(ColorUtils.appWhiteColor),
           Expanded(
               child: WebviewScaffold(
                 userAgent: 'null',//防止携程H5页面重定向到打开携程APP ctrip://wireless/xxx的网址
@@ -96,9 +96,9 @@ class _WebViewState extends State<WebView> {
                 withLocalStorage: true,
                 hidden: true,
                 initialChild: Container(
-                  color: ColorUtils.appTabNavigator,
+                  color: ColorUtils.appWhiteColor,
                   child: Center(
-                    child: Text('加载中...',style: TextStyle(color: Colors.white),),
+                    child: Text('加载中...',style: TextStyle(color: Colors.black),),
                   ),
                 ),
               ))
@@ -129,7 +129,7 @@ class _WebViewState extends State<WebView> {
                 margin: EdgeInsets.only(left: 10),
                 child: Icon(
                   Icons.close,
-                  color: Colors.white,
+                  color: Colors.black,
                   size: 26,
                 ),
               ),
@@ -140,7 +140,7 @@ class _WebViewState extends State<WebView> {
               child: Center(
                 child: Text(
                   widget.title ?? '',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             )

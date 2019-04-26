@@ -60,46 +60,48 @@ class AdvertisingGoodsModel {
   String platformname;
   String interestrate;
   String limit;
+  String goodsSource;
 
   AdvertisingGoodsModel(
       {this.id,
-        this.title,
-        this.categoryId,
-        this.propertyIds,
-        this.tagId,
-        this.img,
-        this.applicationrequirement,
-        this.details,
-        this.level,
-        this.info,
-        this.url,
-        this.loogLine,
-        this.appoint,
-        this.status,
-        this.addTime,
-        this.activation,
-        this.homepicture,
-        this.statusCode,
-        this.cpa,
-        this.pv,
-        this.uv,
-        this.uvEarnings,
-        this.cpaPrice,
-        this.adminId,
-        this.click,
-        this.detailsId,
-        this.auditfailed,
-        this.applyCount,
-        this.shortUrl,
-        this.deadline,
-        this.paceLending,
-        this.successRate,
-        this.reviewWay,
-        this.accountWay,
-        this.creditrequired,
-        this.platformname,
-        this.interestrate,
-        this.limit});
+      this.title,
+      this.categoryId,
+      this.propertyIds,
+      this.tagId,
+      this.img,
+      this.applicationrequirement,
+      this.details,
+      this.level,
+      this.info,
+      this.url,
+      this.loogLine,
+      this.appoint,
+      this.status,
+      this.addTime,
+      this.activation,
+      this.homepicture,
+      this.statusCode,
+      this.cpa,
+      this.pv,
+      this.uv,
+      this.uvEarnings,
+      this.cpaPrice,
+      this.adminId,
+      this.click,
+      this.detailsId,
+      this.auditfailed,
+      this.applyCount,
+      this.shortUrl,
+      this.deadline,
+      this.paceLending,
+      this.successRate,
+      this.reviewWay,
+      this.accountWay,
+      this.creditrequired,
+      this.platformname,
+      this.interestrate,
+      this.limit,
+      this.goodsSource});
 
   AdvertisingGoodsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -139,6 +141,7 @@ class AdvertisingGoodsModel {
     creditrequired = json['creditrequired'];
     platformname = json['platformname'];
     interestrate = json['interestrate'];
+    goodsSource=json['goodsSource'];
     limit = json['limit'];
   }
 
@@ -185,4 +188,3 @@ class AdvertisingGoodsModel {
     return data;
   }
 }
-

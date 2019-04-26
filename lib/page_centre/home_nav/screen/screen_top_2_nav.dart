@@ -57,38 +57,48 @@ class _ScreenTop2NavState extends State<ScreenTop2Nav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorUtils.appBac,
+        backgroundColor: ColorUtils.appWhiteColor,
         body: EasyRefresh(
           key: _easyRefreshKey,
           child: Column(
             children: <Widget>[
-              Padding(padding: EdgeInsets.only(top: 10),),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: PhoneMessage.statusBarHeight,
+                  right: 44,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    _appBar()
+                  ],
+                ),
+              ),
               Container(
-                color: ColorUtils.appTabNavigator,
+                decoration: BoxDecoration(
+                    color: ColorUtils.appWhiteColor,
+                    borderRadius: BorderRadius.circular(4),
+                    boxShadow: [
+                      BoxShadow(
+                          color: ColorUtils.gradientEnd13Color,
+                          offset: Offset(3.0, 3.0),
+                          blurRadius: 10.0,
+                          spreadRadius: 3.0)
+                    ]),
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      top: PhoneMessage.statusBarHeight, right: 24, left: 14),
-                  child: Column(
-                    children: <Widget>[
-                      _appBar(),
-                      Padding(padding: EdgeInsets.only(left: 10),child: _screenType(),),
-                    ],
-                  ),
+                  padding: EdgeInsets.only(right: 24, left: 24),
+                  child: _screenType(),
                 ),
               ),
               Offstage(
                 offstage: _isShowItem ? true : false,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 16, left: 16),
-                  child: ScreenNav(
-                    pagingRowNavList: _homeScreemup,
-                  ),
+                child: ScreenNav(
+                  pagingRowNavList: _homeScreemup,
                 ),
               ),
               Offstage(
                 offstage: _isShowItem ? false : true,
                 child: Container(
-                  color: ColorUtils.appTabNavigator,
+                  color: ColorUtils.appMainShadeColor,
                   child: Column(
                     children: _items(_string),
                   ),
@@ -109,11 +119,11 @@ class _ScreenTop2NavState extends State<ScreenTop2Nav> {
       },
       child: Container(
         width: double.infinity,
-        height: 48,
+        padding: EdgeInsets.all(10),
         child: Center(
           child: Text(
             mode.moneyname,
-            style: TextStyle(color: ColorUtils.appWhiteColor, fontSize: 13),
+            style: TextStyle(color: ColorUtils.appMain2TextColor, fontSize: 13),
           ),
         ),
       ),
@@ -129,11 +139,11 @@ class _ScreenTop2NavState extends State<ScreenTop2Nav> {
       },
       child: Container(
         width: double.infinity,
-        height: 48,
+        padding: EdgeInsets.all(10),
         child: Center(
           child: Text(
             '贷款超市',
-            style: TextStyle(color: ColorUtils.appWhiteColor, fontSize: 13),
+            style: TextStyle(color: ColorUtils.appMain2TextColor, fontSize: 13),
           ),
         ),
       ),
@@ -149,11 +159,11 @@ class _ScreenTop2NavState extends State<ScreenTop2Nav> {
       },
       child: Container(
         width: double.infinity,
-        height: 48,
+        padding: EdgeInsets.all(10),
         child: Center(
           child: Text(
             mode.term,
-            style: TextStyle(color: ColorUtils.appWhiteColor, fontSize: 13),
+            style: TextStyle(color: ColorUtils.appMain2TextColor, fontSize: 13),
           ),
         ),
       ),
@@ -166,6 +176,7 @@ class _ScreenTop2NavState extends State<ScreenTop2Nav> {
     _homeScreemup = _list;
     setState(() {});
   }
+
   _upDadaDate(String conditions) {
     List<HomeScreem> _list = new List<HomeScreem>();
     if (conditions == '不限期限') {
@@ -271,20 +282,21 @@ class _ScreenTop2NavState extends State<ScreenTop2Nav> {
             Navigator.pop(context);
           },
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(20),
             child: Icon(
               Icons.arrow_back_ios,
               color: ColorUtils.appMain2TextColor,
               size: 16,
-            ),),
+            ),
+          ),
         ),
         Expanded(
           child: Container(),
           flex: 1,
         ),
         Text(
-          '新户专享',
-          style: TextStyle(color: ColorUtils.appWhiteColor, fontSize: 18),
+          '贷款超市',
+          style: TextStyle(color: ColorUtils.appMain2TextColor, fontSize: 18),
         ),
         Expanded(
           child: Container(),
@@ -307,23 +319,23 @@ class _ScreenTop2NavState extends State<ScreenTop2Nav> {
               children: <Widget>[
                 Text(
                   _moneyText,
-                  style:
-                      TextStyle(color: ColorUtils.appWhiteColor, fontSize: 15),
+                  style: TextStyle(
+                      color: ColorUtils.appMain2TextColor, fontSize: 15),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 4),
                 ),
                 Icon(
                   _money ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-                  color: ColorUtils.appScreenTopColor,
+                  color: ColorUtils.appMain2TextColor,
                   size: 20,
                 )
               ],
             ),
           ),
           Expanded(
-            child: Container(),
-            flex: 1,
+              child: Container(),
+              flex: 1
           ),
           GestureDetector(
             onTap: () {
@@ -333,15 +345,15 @@ class _ScreenTop2NavState extends State<ScreenTop2Nav> {
               children: <Widget>[
                 Text(
                   _dateText,
-                  style:
-                      TextStyle(color: ColorUtils.appWhiteColor, fontSize: 15),
+                  style: TextStyle(
+                      color: ColorUtils.appMain2TextColor, fontSize: 15),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 4),
                 ),
                 Icon(
                   _date ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-                  color: ColorUtils.appScreenTopColor,
+                  color: ColorUtils.appMain2TextColor,
                   size: 20,
                 )
               ],
@@ -359,15 +371,15 @@ class _ScreenTop2NavState extends State<ScreenTop2Nav> {
               children: <Widget>[
                 Text(
                   _sortText,
-                  style:
-                      TextStyle(color: ColorUtils.appWhiteColor, fontSize: 15),
+                  style: TextStyle(
+                      color: ColorUtils.appMain2TextColor, fontSize: 15),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 4),
                 ),
                 Icon(
                   _sort ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-                  color: ColorUtils.appScreenTopColor,
+                  color: ColorUtils.appMain2TextColor,
                   size: 20,
                 )
               ],

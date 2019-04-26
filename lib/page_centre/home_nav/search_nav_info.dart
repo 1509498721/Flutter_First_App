@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_fish_fly/utils/color_utils.dart';
+
 enum SearchBarType { home, normal, homeLight }
 
 class SearchBar extends StatefulWidget {
@@ -18,17 +19,17 @@ class SearchBar extends StatefulWidget {
 
   const SearchBar(
       {Key key,
-        this.enabled = true,
-        this.hideLeft,
-        this.searchBarType = SearchBarType.normal,
-        this.hint,
-        this.defaultText,
-        this.leftButtonClick,
-        this.rightButtonClick,
-        this.speakClick,
-        this.inputBoxClick,
-        this.onChanged,
-         this.isClear})
+      this.enabled = true,
+      this.hideLeft,
+      this.searchBarType = SearchBarType.normal,
+      this.hint,
+      this.defaultText,
+      this.leftButtonClick,
+      this.rightButtonClick,
+      this.speakClick,
+      this.inputBoxClick,
+      this.onChanged,
+      this.isClear})
       : super(key: key);
 
   @override
@@ -65,10 +66,10 @@ class _SearchBarState extends State<SearchBar> {
               child: widget?.hideLeft ?? false
                   ? null
                   : Icon(
-                Icons.arrow_back_ios,
-                color: Colors.grey,
-                size: 26,
-              ),
+                      Icons.arrow_back_ios,
+                      color: Colors.grey,
+                      size: 26,
+                    ),
             ),
             widget.leftButtonClick),
         Expanded(
@@ -88,7 +89,7 @@ class _SearchBarState extends State<SearchBar> {
   _genHomeSearch() {
     return Container(
       height: 40,
-      color: ColorUtils.appTabNavigator,
+      color: ColorUtils.appWhiteColor,
       child: Row(children: <Widget>[
         Expanded(
           flex: 1,
@@ -103,7 +104,7 @@ class _SearchBarState extends State<SearchBar> {
     if (widget.searchBarType == SearchBarType.home) {
       inputBoxColor = Colors.white;
     } else {
-      inputBoxColor = ColorUtils.appTabNavigator;
+      inputBoxColor = Colors.white;
     }
     return Container(
       height: 40,
@@ -111,7 +112,14 @@ class _SearchBarState extends State<SearchBar> {
       decoration: BoxDecoration(
           color: inputBoxColor,
           borderRadius: BorderRadius.circular(
-              widget.searchBarType == SearchBarType.normal ? 5 : 15)),
+              widget.searchBarType == SearchBarType.normal ? 5 : 15),
+          boxShadow: [
+            BoxShadow(
+                color: ColorUtils.gradientEnd13Color,
+                offset: Offset(3.0, 3.0),
+                blurRadius: 5.0,
+                spreadRadius: 2.0)
+          ]),
       child: Row(
         children: <Widget>[
           Padding(
@@ -122,40 +130,40 @@ class _SearchBarState extends State<SearchBar> {
               flex: 1,
               child: widget.searchBarType == SearchBarType.normal
                   ? TextField(
-                  controller: _controller,
-                  onChanged: _onChanged,
-                  autofocus: false,
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: ColorUtils.appHomeMoreColor),
-                  //输入文本的样式
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    border: InputBorder.none,
-                    hintText: widget.hint ?? '',
-                    hintStyle: TextStyle(fontSize: 14,color: ColorUtils.appHomeMoreColor),
-                  ))
+                      controller: _controller,
+                      onChanged: _onChanged,
+                      autofocus: false,
+                      style: TextStyle(
+                          fontSize: 12, color: ColorUtils.appHomeMoreColor),
+                      //输入文本的样式
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                        border: InputBorder.none,
+                        hintText: widget.hint ?? '',
+                        hintStyle: TextStyle(
+                            fontSize: 12, color: ColorUtils.appHomeMoreColor),
+                      ))
                   : _wrapTap(
-                  Container(
-                    child: Text(
-                      widget.defaultText,
-                      style: TextStyle(fontSize: 13, color: Colors.grey),
-                    ),
-                  ),
-                  widget.inputBoxClick)),
+                      Container(
+                        child: Text(
+                          widget.defaultText,
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ),
+                      widget.inputBoxClick)),
           !showClear
               ? Text('')
               : _wrapTap(
-              Icon(
-                Icons.clear,
-                size: 22,
-                color: Colors.grey,
-              ), () {
-            setState(() {
-              _controller.clear();
-            });
-            _onChanged('');
-          })
+                  Icon(
+                    Icons.clear,
+                    size: 22,
+                    color: Colors.grey,
+                  ), () {
+                  setState(() {
+                    _controller.clear();
+                  });
+                  _onChanged('');
+                })
         ],
       ),
     );
@@ -185,5 +193,4 @@ class _SearchBarState extends State<SearchBar> {
       widget.onChanged(text);
     }
   }
-
 }

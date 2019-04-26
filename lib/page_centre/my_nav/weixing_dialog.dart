@@ -11,7 +11,7 @@ class WeiXinDialog extends Dialog {
       child: Padding(
         padding: EdgeInsets.only(right: 36, left: 36),
         child: Container(
-          color: ColorUtils.appBac,
+          color: ColorUtils.appWhiteColor,
           height: 230,
           width: double.infinity,
           child: Scrollbar(child: Column(
@@ -21,7 +21,7 @@ class WeiXinDialog extends Dialog {
                 child: Text(
                   '关注微信服务号',
                   style: TextStyle(
-                    color: ColorUtils.appWhiteColor,
+                    color: ColorUtils.appMain2TextColor,
                     fontSize: 16,
                     decoration: TextDecoration.none,
                   ),
@@ -54,7 +54,7 @@ class WeiXinDialog extends Dialog {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      color: ColorUtils.appHomePagingTextColor,
+                      color: ColorUtils.appWeiXinColor,
                       child: Text(
                         "我在想想",
                         style: TextStyle(
@@ -76,7 +76,7 @@ class WeiXinDialog extends Dialog {
                         }
                         Navigator.pop(context);
                       },
-                      color: ColorUtils.appHomePagingTextColor,
+                      color: ColorUtils.appWeiXinColor,
                       child: Text(
                         "去关注",
                         style: TextStyle(

@@ -44,7 +44,6 @@ double appBarAlpha=0;
                             },
                             viewportFraction: 0.9,
                             scale: 0.95,
-                            onTap: (index) => print('点击了第$index个'),
                             pagination: SwiperPagination())),
                     Container(
                       height: 800,
