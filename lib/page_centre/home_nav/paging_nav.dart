@@ -231,7 +231,7 @@ class PagingNav extends StatelessWidget {
 
   String _getDetails(String details) {
     try {
-      return details.substring(0, 15);
+      return details.substring(0, 20);
     } catch (e) {
       return details;
     }

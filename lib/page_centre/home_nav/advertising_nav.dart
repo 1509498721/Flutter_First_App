@@ -11,6 +11,7 @@ class AdvertisingNav extends StatelessWidget {
   final List<AdvertisingGoodsModel> advertisingNavList;
 
   const AdvertisingNav({Key key, this.advertisingNavList}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -31,63 +32,76 @@ class AdvertisingNav extends StatelessWidget {
   }
 
   _views(BuildContext context) {
-    bool isShow=false;
     if (advertisingNavList == null) return null;
-    if(advertisingNavList.length>1){
-      isShow=true;
+    if (advertisingNavList.length > 1) {
+      List<Widget> items = [];
+      advertisingNavList.forEach((mode) {
+        items.add(_view(context, mode));
+      });
+      return Container(
+          color: ColorUtils.appWhiteColor,
+          width: MediaQuery.of(context).size.width,
+          height: 156,
+          child: Swiper(
+            itemBuilder: (BuildContext context, int indext) {
+              return items[indext];
+            },
+            itemCount: advertisingNavList.length,
+            pagination: SwiperPagination(
+                builder: DotSwiperPaginationBuilder(
+              size: 8,
+              activeSize: 8,
+              color: Color(0XFFFBBA14),
+              activeColor: Color(0XFFFB8F39),
+            )),
+            autoplay: true,
+            onTap: (index) {
+              _jump(index, context);
+            },
+          ));
+    } else {
+      Widget item;
+      advertisingNavList.forEach((mode) {
+        item = _view2(context, mode);
+      });
+      return Container(
+          color: ColorUtils.appWhiteColor,
+          width: MediaQuery.of(context).size.width,
+          height: 156,
+          child: item);
     }
-    List<Widget> items = [];
-    advertisingNavList.forEach((mode) {
-      items.add(_view(context, mode));
-    });
-    return Container(
-        color: ColorUtils.appWhiteColor,
-        width: MediaQuery.of(context).size.width,
-        height: 156,
-        child: Swiper(
-          itemBuilder: (BuildContext context, int indext) {
-            return items[indext];
-          },
-          itemCount: advertisingNavList.length,
-          pagination: SwiperPagination(
-              builder: DotSwiperPaginationBuilder(
-                size: 8,
-                activeSize:8 ,
-                color: Color(0XFFFBBA14),
-                activeColor: Color(0XFFFB8F39),
-              )),
-          autoplay:isShow?true:false,
-          onTap: (index){
-            _jump(index,context);
-          },
-        ));
   }
-  _jump(int mode, BuildContext context){
 
+  _jump(int mode, BuildContext context) {
     CommonCode.My_TOKENTInfo == null
         ? Navigator.push(
-      context,
-      new MaterialPageRoute(
-          builder: (context) => LoginPage()),)
+            context,
+            new MaterialPageRoute(builder: (context) => LoginPage()),
+          )
         : Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => WebView(
-              url: CommonCode.BASE_URL +
-                  'Supermarke/' +
-                  advertisingNavList[mode].goodsSource +
-                  "?id=" +
-                  CommonCode.USER_IDInfo +
-                  "&frendSource=" +
-                  CommonCode.USER_SOURCEInfo,
-              title: advertisingNavList[mode].title,
-            )));
+            context,
+            MaterialPageRoute(
+                builder: (context) => WebView(
+                      url: CommonCode.BASE_URL +
+                          'Supermarke/' +
+                          advertisingNavList[mode].goodsSource +
+                          "?id=" +
+                          CommonCode.USER_IDInfo +
+                          "&frendSource=" +
+                          CommonCode.USER_SOURCEInfo,
+                      title: advertisingNavList[mode].title,
+                    )));
   }
+
   Widget _view(BuildContext context, AdvertisingGoodsModel mode) {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(left: 16, top: 6, right: 16,),
+          padding: EdgeInsets.only(
+            left: 16,
+            top: 6,
+            right: 16,
+          ),
           child: Row(
             children: <Widget>[
               ClipRRect(
@@ -112,8 +126,7 @@ class AdvertisingNav extends StatelessWidget {
                 mode.uv.toString() + "人申请",
                 textAlign: TextAlign.right,
                 style: TextStyle(
-                    color: ColorUtils.appTopAdvertisingTextColor,
-                    fontSize: 12),
+                    color: ColorUtils.appTopAdvertisingTextColor, fontSize: 12),
               ),
             ],
           ),
@@ -181,6 +194,128 @@ class AdvertisingNav extends StatelessWidget {
     );
   }
 
+  Widget _view2(BuildContext context, AdvertisingGoodsModel mode) {
+    return GestureDetector(
+      onTap: (){
+        CommonCode.My_TOKENTInfo == null
+            ? Navigator.push(
+          context,
+          new MaterialPageRoute(builder: (context) => LoginPage()),
+        )
+            : Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => WebView(
+                  url: CommonCode.BASE_URL +
+                      'Supermarke/' +
+                      mode.goodsSource +
+                      "?id=" +
+                      CommonCode.USER_IDInfo +
+                      "&frendSource=" +
+                      CommonCode.USER_SOURCEInfo,
+                  title: mode.title,
+                )));
+      },
+      child: Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(
+            left: 16,
+            top: 6,
+            right: 16,
+          ),
+          child: Row(
+            children: <Widget>[
+              ClipRRect(
+                child: Image.network(
+                  mode.img,
+                  height: 24,
+                ),
+                borderRadius: BorderRadius.circular(2.0),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 8),
+                child: Text(
+                  mode.title,
+                  style: TextStyle(fontSize: 12),
+                ),
+              ),
+              Expanded(
+                child: Container(),
+                flex: 1,
+              ),
+              Text(
+                mode.uv.toString() + "人申请",
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                    color: ColorUtils.appTopAdvertisingTextColor, fontSize: 12),
+              ),
+            ],
+          ),
+        ),
+        Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Text(
+                    '最高额度(元）',
+                    style: TextStyle(
+                        color: ColorUtils.appTopAdvertisingTextColor,
+                        fontSize: 12),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Text(
+                    _getComma(mode.limit),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: ColorUtils.appTopAdvertisingMainTextColor,
+                        fontSize: 32),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 64, left: 64, top: 8),
+                  child: Container(
+                    height: 32,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                            colors: [
+                              ColorUtils.gradientStartColor,
+                              ColorUtils.gradientEndColor
+                            ],
+                            begin: FractionalOffset(1, 0),
+                            end: FractionalOffset(0, 1))),
+                    child: Center(
+                      child: Text(
+                        "只需三步,立即拿钱",
+                        style: TextStyle(
+                          color: ColorUtils.appWhiteColor,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(top: 12),
+                )
+              ],
+            ),
+            Align(
+                alignment: FractionalOffset.centerRight,
+                child: Image.asset(
+                  'images/index_view_topright_new.png',
+                )),
+          ],
+        )
+      ],
+    ),);
+  }
+
   String _getComma(String limit) {
     var stringSige = limit.length;
     if (stringSige < 4) {
@@ -199,6 +334,4 @@ class AdvertisingNav extends StatelessWidget {
       return limit;
     }
   }
-
-
 }

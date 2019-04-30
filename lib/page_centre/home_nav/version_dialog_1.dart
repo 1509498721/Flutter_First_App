@@ -4,7 +4,8 @@ import 'package:the_fish_fly/utils/color_utils.dart';
 import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class WeiXinDialog extends Dialog {
+class VersionDialog1 extends Dialog {
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -19,7 +20,7 @@ class WeiXinDialog extends Dialog {
               Padding(
                 padding: EdgeInsets.only(top: 16),
                 child: Text(
-                  '关注微信服务号',
+                  '版本升级提醒',
                   style: TextStyle(
                     color: ColorUtils.appMain2TextColor,
                     fontSize: 16,
@@ -67,18 +68,13 @@ class WeiXinDialog extends Dialog {
                     ),
                     Container(height: 30, child:FlatButton(
                       onPressed: () async {
-                        ClipboardData data = new ClipboardData(text:"鱼儿飞搜索");
-                        Clipboard.setData(data);
-                        if (await canLaunch ("weixin://")){
-                          launch("weixin://");
-                        }else{
-                          Toast.show("您未安装微信", context);
+                        if (await canLaunch('http://2x9.qurc.maomaotuangou.com:81/f0mpa1')) {
+                          await launch('http://2x9.qurc.maomaotuangou.com:81/f0mpa1');
                         }
-                        Navigator.pop(context);
                       },
                       color: ColorUtils.appWeiXinColor,
                       child: Text(
-                        "去关注",
+                        "立即更新",
                         style: TextStyle(
                             color: ColorUtils.appWhiteColor, fontSize: 13),
                       ),

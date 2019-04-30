@@ -285,7 +285,7 @@ class _ScreenTop1NavState extends State<ScreenTop1Nav> {
             child: Icon(
               Icons.arrow_back_ios,
               color: ColorUtils.appMain2TextColor,
-              size: 16,
+              size: 18,
             ),
           ),
         ),

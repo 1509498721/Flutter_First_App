@@ -34,7 +34,7 @@ class Items {
   int id;
   int type;
   String createTime;
-  int updateTime;
+  String updateTime;
   int appId;
   String versionId;
   int versionCode;

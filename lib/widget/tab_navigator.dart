@@ -46,6 +46,8 @@ class _TabNavigatorState extends State<TabNavigator> {
                 _currentIndex = index;
               });
             },
+            backgroundColor: ColorUtils.appWhiteColor,
+
             type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(

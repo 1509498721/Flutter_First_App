@@ -62,13 +62,11 @@ class _ScreenMoreNavState extends State<ScreenMoreNav> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(
-                    top: PhoneMessage.statusBarHeight,
-                    right: 44,
-                    ),
+                  top: PhoneMessage.statusBarHeight,
+                  right: 44,
+                ),
                 child: Column(
-                  children: <Widget>[
-                    _appBar()
-          ],
+                  children: <Widget>[_appBar()],
                 ),
               ),
               Container(
@@ -115,13 +113,16 @@ class _ScreenMoreNavState extends State<ScreenMoreNav> {
         _upDadaMoney(mode.moneyname);
         setState(() {});
       },
-      child: Container(
-        width: double.infinity,
+      child: Padding(
         padding: EdgeInsets.all(10),
-        child: Center(
-          child: Text(
-            mode.moneyname,
-            style: TextStyle(color: ColorUtils.appMain2TextColor, fontSize: 13),
+        child: Container(
+          width: double.infinity,
+          child: Center(
+            child: Text(
+              mode.moneyname,
+              style:
+                  TextStyle(color: ColorUtils.appMain2TextColor, fontSize: 13),
+            ),
           ),
         ),
       ),
@@ -312,7 +313,7 @@ class _ScreenMoreNavState extends State<ScreenMoreNav> {
             child: Icon(
               Icons.arrow_back_ios,
               color: ColorUtils.appMain2TextColor,
-              size: 16,
+              size: 18,
             ),
           ),
         ),
@@ -347,7 +348,7 @@ class _ScreenMoreNavState extends State<ScreenMoreNav> {
                   _moneyText,
                   style: TextStyle(
                       color: ColorUtils.appMain2TextColor, fontSize: 15),
-                 ),
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 4),
                 ),
@@ -359,10 +360,7 @@ class _ScreenMoreNavState extends State<ScreenMoreNav> {
               ],
             ),
           ),
-          Expanded(
-            child: Container(),
-            flex: 1
-          ),
+          Expanded(child: Container(), flex: 1),
           GestureDetector(
             onTap: () {
               _upBool('date');

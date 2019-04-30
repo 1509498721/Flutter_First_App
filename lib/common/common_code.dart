@@ -4,7 +4,7 @@ import 'package:the_fish_fly/model/home_screen_model.dart';
 import 'package:the_fish_fly/model/screen_model.dart';
 
 class CommonCode {
-  static final String VERSIONS_CODE = "1.0.0";
+  static final String VERSIONS_CODE = "1.1.3";
   static final int SUCCESS_CODE = 200;
   static final String BASE_URL = "http://yef.miaojiedao.cn/"; //baseUrl
   static final String UPDATE_APP = "https://raw.githubusercontent.com/AriesHoo/FastLib/master/apk/___"; //查询APP是否有最新版本
@@ -41,5 +41,6 @@ class CommonCode {
 
   static  ScreenModel screenModel;  //筛选
   static  List<HomeScreem> homeScreem;  //筛选
+  static  bool isFirst=true;
 
 }

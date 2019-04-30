@@ -286,7 +286,7 @@ class _ScreenTop3NavState extends State<ScreenTop3Nav> {
             child: Icon(
               Icons.arrow_back_ios,
               color: ColorUtils.appMain2TextColor,
-              size: 16,
+              size: 18,
             ),
           ),
         ),

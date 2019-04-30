@@ -4,7 +4,7 @@ import 'package:the_fish_fly/utils/color_utils.dart';
 import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class WeiXinDialog extends Dialog {
+class WebViewDialog extends Dialog {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -35,7 +35,7 @@ class WeiXinDialog extends Dialog {
               Padding(
                   padding: EdgeInsets.only( right: 24, left: 24),
                   child: Text(
-                    '关注【鱼儿飞搜索】服务号获得最新贷款信息 和放款攻略，随时随地一键申请。请在微 信搜索框粘贴搜索【鱼儿飞搜索】服务号 点击关注即可。',
+                    '关注【鱼儿飞】服务号获得最新贷款信息 和放款攻略，随时随地一键申请。请在微 信搜索框粘贴搜索【鱼儿飞搜索】服务号 点击关注即可。',
                     style: TextStyle(
                         color: ColorUtils.appMain2TextColor,
                         fontSize: 14,

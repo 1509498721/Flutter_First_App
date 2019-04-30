@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:the_fish_fly/common/common_code.dart';
 import 'package:the_fish_fly/model/advertising_model.dart';
@@ -15,12 +17,13 @@ import 'package:the_fish_fly/page_centre/home_nav/local_nav.dart';
 import 'package:the_fish_fly/page_centre/home_nav/paging_nav.dart';
 import 'package:the_fish_fly/page_centre/home_nav/screen/screen_more_nav.dart';
 import 'package:the_fish_fly/page_centre/home_nav/search_nav_info.dart';
+import 'package:the_fish_fly/page_centre/home_nav/version_dialog_1.dart';
+import 'package:the_fish_fly/page_centre/home_nav/version_dialog_2.dart';
 import 'package:the_fish_fly/utils/color_utils.dart';
 import 'package:the_fish_fly/utils/dio_utils.dart';
 import 'package:the_fish_fly/utils/get_phone_message.dart';
 import 'package:the_fish_fly/widget/loading_container.dart';
 import 'package:the_fish_fly/widget/material_header.dart';
-
 class FishHomePage extends StatefulWidget {
   @override
   _FishHomePageState createState() => _FishHomePageState();
@@ -34,8 +37,7 @@ class _FishHomePageState extends State<FishHomePage>
   List<ClassificationPropertyModel> localNavList;
 
   //首页广告
-  List<AdvertisingGoodsModel> advertisingNavList;
-
+  List<AdvertisingGoodsModel> advertisingNavList=new  List<AdvertisingGoodsModel>();
   //首页分页数据
   List<PagingRowModel> pagingRowList;
 
@@ -46,8 +48,10 @@ class _FishHomePageState extends State<FishHomePage>
   GlobalKey<EasyRefreshState> _easyRefreshKey =
       new GlobalKey<EasyRefreshState>();
 
+  int num = 0;
+
   //加载
-  var _loading = true;
+  var _loading = false;
 
   //刷新头
   GlobalKey<RefreshHeaderState> _headerKey =
@@ -58,9 +62,8 @@ class _FishHomePageState extends State<FishHomePage>
       final res =
           await HttpUtil.getInstance().get(CommonCode.GET_INDEX_TOP_ITEM);
       var modelData = ClassificationModel.fromJson(res);
-      setState(() {
-        localNavList = modelData.property;
-      });
+      if(localNavList==modelData.property) return;
+      localNavList = modelData.property;
     } catch (e) {
       print("-----四个按钮" + e.toString());
     }
@@ -71,9 +74,13 @@ class _FishHomePageState extends State<FishHomePage>
       final res =
           await HttpUtil.getInstance().get(CommonCode.GET_INDEX_PRODUCT);
       var modelData = AdvertisingModel.fromJson(res);
-      setState(() {
+      if(advertisingNavList==modelData.goods){
+        return;
+      }else{
+
+        advertisingNavList.clear();
         advertisingNavList = modelData.goods;
-      });
+      }
     } catch (e) {
       print("-----广告" + e.toString());
     }
@@ -84,12 +91,16 @@ class _FishHomePageState extends State<FishHomePage>
       final res =
           await HttpUtil.getInstance().get(CommonCode.GET_PAGE_GOODS_LIST);
       var modelData = PagingModel.fromJson(res);
-      setState(() {
-        pagingRowList = modelData.rows;
-      });
+      if(pagingRowList==modelData.rows) return;
+      pagingRowList = modelData.rows;
+
       print("-------------" + pagingRowList.length.toString());
+      _loading = false;
     } catch (e) {
       print("-----分页" + e.toString());
+      _loading = false;
+    } finally {
+
     }
   }
 
@@ -98,9 +109,10 @@ class _FishHomePageState extends State<FishHomePage>
       final res =
           await HttpUtil.getInstance().get(CommonCode.GET_APP_TYPE_LIST);
       var modelData = ScreenModel.fromJson(res);
+      if(CommonCode.screenModel == modelData) return;
 
       CommonCode.screenModel = modelData;
-      setState(() {});
+
     } catch (e) {
       print("-----筛选" + e.toString());
     }
@@ -119,37 +131,69 @@ class _FishHomePageState extends State<FishHomePage>
         throw DioError(message: '数据解析错误');
       }
       var modelData = HomeScreenModel.fromJson(resJson);
+      if(CommonCode.homeScreem ==  modelData.items) return;
       CommonCode.homeScreem = modelData.items;
+      setState(() {});
       print('----' + modelData.items.length.toString());
     } catch (e) {
-      print("-----" + e.toString());
-    } finally {
-      _loading = false;
     }
   }
-  void _version() async{
 
+  void _version() async {
+    if(CommonCode.isFirst==false){
+      return;
+    }
     try {
+      int id;
+      if(Platform.isAndroid){
+        id=1;
+      }else{
+        id=2;
+      }
+      CommonCode.isFirst=false;
+
       Map<String, dynamic> resJson;
-      final res = await HttpUtil.getInstance().post(CommonCode.POST_VERSION_SELECTDETAIL, data: {"appId": 1});
+      final res = await HttpUtil.getInstance()
+          .post(CommonCode.POST_VERSION_SELECTDETAIL, data: {"appId": id});
       if (res is String) {
         resJson = json.decode(res);
       } else if (res is Map<String, dynamic>) {
         resJson = res;
       } else {
-        throw DioError(message: '数据解析错误');
+        throw DioError(message:'数据解析错误');
       }
       var modelData = VersionModel.fromJson(resJson);
-      print("aaaa"+modelData.items[0].apkUrl);
+      if (CommonCode.VERSIONS_CODE != modelData.items[0].versionId) {
+        if (modelData.items[0].type == 2) {
+          showDialog<Null>(
+              context: context, //BuildContext对象
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return VersionDialog2();
+              });
+          _pop();
+        } else {
+          showDialog<Null>(
+              context: context, //BuildContext对象
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return VersionDialog1();
+              });
+        }
+      }
     } catch (e) {
       print("-----" + e.toString());
     }
-
   }
+
+  Future<void> _pop() async {
+    await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+  }
+
   @override
   void initState() {
     super.initState();
-   // _version();
+    _version();
     //头部的四个按钮
     _initTopFourBut();
     //首页广告位
@@ -160,7 +204,6 @@ class _FishHomePageState extends State<FishHomePage>
     _initScreen();
     //筛选数据
     _initScreenDada();
-    setState(() {});
   }
 
   @override
@@ -172,7 +215,7 @@ class _FishHomePageState extends State<FishHomePage>
           child: Padding(
             padding: EdgeInsets.only(top: PhoneMessage.statusBarHeight),
             child: Padding(
-              padding: EdgeInsets.only(top: 16),
+              padding: EdgeInsets.only(top: 0),
               child: EasyRefresh(
                   key: _easyRefreshKey,
                   child: Column(
@@ -271,20 +314,26 @@ class _FishHomePageState extends State<FishHomePage>
                   ),
                   //视图刷新
                   onRefresh: () async {
-                    //头部的四个按钮
-                    _initTopFourBut();
-                    //首页广告位
-                    _initMainAdvertising();
-                    //分页数据
-                    _initMainPaging();
-                    //筛选itme
-                    _initScreen();
-                    //筛选数据
-                    _initScreenDada();
-                    setState(() {});
+                    await new Future.delayed(const Duration(seconds: 1), () {
+                      setState(() {
+                        //头部的四个按钮
+                        _initTopFourBut();
+                        //首页广告位
+                        _initMainAdvertising();
+                        //分页数据
+                        _initMainPaging();
+                        //筛选itme
+                        _initScreen();
+                        //筛选数据
+                        _initScreenDada();
+                        _loading=false;
+                      });
+                    });
                   },
                   //自定义刷新头部
-                  refreshHeader: MaterialHeader()),
+                  refreshHeader: MaterialHeader(
+                    key: _headerKey,
+                  )),
             ),
           ),
         ));

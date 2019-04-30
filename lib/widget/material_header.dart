@@ -25,7 +25,7 @@ class MaterialHeader extends RefreshHeader {
 
   MaterialHeader({
     @required GlobalKey<RefreshHeaderState> key,
-    this.displacement: 30.0,
+    this.displacement: 20.0,
     this.valueColor,
     this.backgroundColor,
   }) : super(
@@ -72,7 +72,7 @@ class MaterialHeaderState extends RefreshHeaderState<MaterialHeader>
   void onRefreshed() async {
     super.onRefreshed();
     // 此处延时用于等待加载完成显示时间
-    await Future.delayed(new Duration(milliseconds: widget.finishDelay - 200));
+    await Future.delayed(new Duration(milliseconds: widget.finishDelay - 1000));
     if (!mounted) return;
     _scaleController.animateTo(1.0, duration: _kIndicatorScaleDuration);
   }

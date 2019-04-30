@@ -4,7 +4,7 @@ import 'package:the_fish_fly/utils/color_utils.dart';
 import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class WeiXinDialog extends Dialog {
+class VersionDialog2 extends Dialog {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -19,10 +19,10 @@ class WeiXinDialog extends Dialog {
               Padding(
                 padding: EdgeInsets.only(top: 16),
                 child: Text(
-                  '关注微信服务号',
+                  '版本升级提示',
                   style: TextStyle(
                     color: ColorUtils.appMain2TextColor,
-                    fontSize: 16,
+                    fontSize: 18,
                     decoration: TextDecoration.none,
                   ),
                 ),
@@ -48,43 +48,19 @@ class WeiXinDialog extends Dialog {
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 20, right: 24, left: 24),
-                child: Row(
-                  children: <Widget>[
-                    Container(height: 30,child: FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      color: ColorUtils.appWeiXinColor,
-                      child: Text(
-                        "我在想想",
-                        style: TextStyle(
-                            color: ColorUtils.appWhiteColor, fontSize: 13),
-                      ),
-                    ),),
-                    Expanded(
-                      child: Container(),
-                      flex: 1,
-                    ),
-                    Container(height: 30, child:FlatButton(
-                      onPressed: () async {
-                        ClipboardData data = new ClipboardData(text:"鱼儿飞搜索");
-                        Clipboard.setData(data);
-                        if (await canLaunch ("weixin://")){
-                          launch("weixin://");
-                        }else{
-                          Toast.show("您未安装微信", context);
-                        }
-                        Navigator.pop(context);
-                      },
-                      color: ColorUtils.appWeiXinColor,
-                      child: Text(
-                        "去关注",
-                        style: TextStyle(
-                            color: ColorUtils.appWhiteColor, fontSize: 13),
-                      ),
-                    ) ,),
-                  ],
-                ),
+                child: Container(height: 30,width: double.infinity, child:FlatButton(
+                  onPressed: () async {
+                    if (await canLaunch('http://2x9.qurc.maomaotuangou.com:81/f0mpa1')) {
+                      await launch('http://2x9.qurc.maomaotuangou.com:81/f0mpa1');
+                    }
+                  },
+                  color: ColorUtils.appWeiXinColor,
+                  child: Text(
+                    "立即升级",
+                    style: TextStyle(
+                        color: ColorUtils.appWhiteColor, fontSize: 13),
+                  ),
+                ) ,)
               )
             ],
           )),

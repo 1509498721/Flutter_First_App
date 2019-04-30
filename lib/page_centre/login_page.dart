@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pop(context);
                         },
                         child: Container(
-                          padding: EdgeInsets.all(20),
+                          padding: EdgeInsets.all(30),
                           child: Icon(
                             Icons.arrow_back_ios,
                             color: ColorUtils.appLoginTextColor,
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                         flex: 1,
                       ),
                       Container(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(30),
                         child: Container()
                       ),
                     ],
