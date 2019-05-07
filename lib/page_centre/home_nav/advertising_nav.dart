@@ -5,16 +5,20 @@ import 'package:the_fish_fly/common/common_code.dart';
 import 'package:the_fish_fly/model/advertising_model.dart';
 import 'package:the_fish_fly/page_centre/login_page.dart';
 import 'package:the_fish_fly/utils/color_utils.dart';
-import 'package:the_fish_fly/widget/web_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class AdvertisingNav extends StatelessWidget {
+class AdvertisingNav extends StatefulWidget {
+
   final List<AdvertisingGoodsModel> advertisingNavList;
 
   const AdvertisingNav({Key key, this.advertisingNavList}) : super(key: key);
-
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+class _MyHomePageState extends State<AdvertisingNav>{
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(left: 16, right: 16, top: 5),
@@ -32,11 +36,11 @@ class AdvertisingNav extends StatelessWidget {
   }
 
   _views(BuildContext context) {
-    if (advertisingNavList == null) return null;
-    if (advertisingNavList.length > 1) {
-      List<Widget> items = [];
-      advertisingNavList.forEach((mode) {
-        items.add(_view(context, mode));
+    if (widget.advertisingNavList == null) return null;
+    if (widget.advertisingNavList.length > 1) {
+      List<Widget> items = new List<Widget>();
+      widget.advertisingNavList.forEach((mode) {
+        items.add(_view2(context, mode));
       });
       return Container(
           color: ColorUtils.appWhiteColor,
@@ -46,14 +50,15 @@ class AdvertisingNav extends StatelessWidget {
             itemBuilder: (BuildContext context, int indext) {
               return items[indext];
             },
-            itemCount: advertisingNavList.length,
+            itemCount: widget.advertisingNavList.length,
             pagination: SwiperPagination(
+                margin: EdgeInsets.all(0),
                 builder: DotSwiperPaginationBuilder(
-              size: 8,
-              activeSize: 8,
-              color: Color(0XFFFBBA14),
-              activeColor: Color(0XFFFB8F39),
-            )),
+                  size: 8,
+                  activeSize: 8,
+                  color: Color(0XFFFBBA14),
+                  activeColor: Color(0XFFFB8F39),
+                )),
             autoplay: true,
             onTap: (index) {
               _jump(index, context);
@@ -61,7 +66,7 @@ class AdvertisingNav extends StatelessWidget {
           ));
     } else {
       Widget item;
-      advertisingNavList.forEach((mode) {
+      widget.advertisingNavList.forEach((mode) {
         item = _view2(context, mode);
       });
       return Container(
@@ -72,248 +77,145 @@ class AdvertisingNav extends StatelessWidget {
     }
   }
 
+  _launch(int mode) {
+    launch(CommonCode.BASE_URL +
+        'Supermarke/' +
+        widget.advertisingNavList[mode].goodsSource +
+        "?id=" +
+        CommonCode.USER_IDInfo +
+        "&frendSource=" +
+        CommonCode.USER_SOURCEInfo);
+  }
+
   _jump(int mode, BuildContext context) {
     CommonCode.My_TOKENTInfo == null
         ? Navigator.push(
-            context,
-            new MaterialPageRoute(builder: (context) => LoginPage()),
-          )
-        : Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => WebView(
-                      url: CommonCode.BASE_URL +
-                          'Supermarke/' +
-                          advertisingNavList[mode].goodsSource +
-                          "?id=" +
-                          CommonCode.USER_IDInfo +
-                          "&frendSource=" +
-                          CommonCode.USER_SOURCEInfo,
-                      title: advertisingNavList[mode].title,
-                    )));
+      context,
+      new MaterialPageRoute(builder: (context) => LoginPage()),
+    )
+        : _launch(mode);
   }
 
-  Widget _view(BuildContext context, AdvertisingGoodsModel mode) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(
-            left: 16,
-            top: 6,
-            right: 16,
-          ),
-          child: Row(
-            children: <Widget>[
-              ClipRRect(
-                child: Image.network(
-                  mode.img,
-                  height: 24,
-                ),
-                borderRadius: BorderRadius.circular(2.0),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 8),
-                child: Text(
-                  mode.title,
-                  style: TextStyle(fontSize: 12),
-                ),
-              ),
-              Expanded(
-                child: Container(),
-                flex: 1,
-              ),
-              Text(
-                mode.uv.toString() + "人申请",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    color: ColorUtils.appTopAdvertisingTextColor, fontSize: 12),
-              ),
-            ],
-          ),
-        ),
-        Stack(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 0),
-                  child: Text(
-                    '最高额度(元）',
-                    style: TextStyle(
-                        color: ColorUtils.appTopAdvertisingTextColor,
-                        fontSize: 12),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 6),
-                  child: Text(
-                    _getComma(mode.limit),
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: ColorUtils.appTopAdvertisingMainTextColor,
-                        fontSize: 32),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 64, left: 64, top: 8),
-                  child: Container(
-                    height: 32,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                            colors: [
-                              ColorUtils.gradientStartColor,
-                              ColorUtils.gradientEndColor
-                            ],
-                            begin: FractionalOffset(1, 0),
-                            end: FractionalOffset(0, 1))),
-                    child: Center(
-                      child: Text(
-                        "只需三步,立即拿钱",
-                        style: TextStyle(
-                          color: ColorUtils.appWhiteColor,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 12),
-                )
-              ],
-            ),
-            Align(
-                alignment: FractionalOffset.centerRight,
-                child: Image.asset(
-                  'images/index_view_topright_new.png',
-                )),
-          ],
-        )
-      ],
-    );
+  _launchs(AdvertisingGoodsModel mode) {
+    launch(CommonCode.BASE_URL +
+        'Supermarke/' +
+        mode.goodsSource +
+        "?id=" +
+        CommonCode.USER_IDInfo +
+        "&frendSource=" +
+        CommonCode.USER_SOURCEInfo);
   }
 
   Widget _view2(BuildContext context, AdvertisingGoodsModel mode) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         CommonCode.My_TOKENTInfo == null
             ? Navigator.push(
           context,
           new MaterialPageRoute(builder: (context) => LoginPage()),
         )
-            : Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => WebView(
-                  url: CommonCode.BASE_URL +
-                      'Supermarke/' +
-                      mode.goodsSource +
-                      "?id=" +
-                      CommonCode.USER_IDInfo +
-                      "&frendSource=" +
-                      CommonCode.USER_SOURCEInfo,
-                  title: mode.title,
-                )));
+            : _launchs(mode);
       },
-      child: Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(
-            left: 16,
-            top: 6,
-            right: 16,
-          ),
-          child: Row(
-            children: <Widget>[
-              ClipRRect(
-                child: Image.network(
-                  mode.img,
-                  height: 24,
-                ),
-                borderRadius: BorderRadius.circular(2.0),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 8),
-                child: Text(
-                  mode.title,
-                  style: TextStyle(fontSize: 12),
-                ),
-              ),
-              Expanded(
-                child: Container(),
-                flex: 1,
-              ),
-              Text(
-                mode.uv.toString() + "人申请",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    color: ColorUtils.appTopAdvertisingTextColor, fontSize: 12),
-              ),
-            ],
-          ),
-        ),
-        Stack(
-          children: <Widget>[
-            Column(
+      child:  Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(
+              left: 16,
+              top: 6,
+              right: 16,
+            ),
+            child: Row(
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 8),
-                  child: Text(
-                    '最高额度(元）',
-                    style: TextStyle(
-                        color: ColorUtils.appTopAdvertisingTextColor,
-                        fontSize: 12),
+                ClipRRect(
+                  child: Image.network(
+                    mode.img,
+                    height: 24,
                   ),
+                  borderRadius: BorderRadius.circular(2.0),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 8),
+                  padding: EdgeInsets.only(left: 8),
                   child: Text(
-                    _getComma(mode.limit),
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: ColorUtils.appTopAdvertisingMainTextColor,
-                        fontSize: 32),
+                    mode.title,
+                    style: TextStyle(fontSize: 12),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(right: 64, left: 64, top: 8),
-                  child: Container(
-                    height: 32,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                            colors: [
-                              ColorUtils.gradientStartColor,
-                              ColorUtils.gradientEndColor
-                            ],
-                            begin: FractionalOffset(1, 0),
-                            end: FractionalOffset(0, 1))),
-                    child: Center(
-                      child: Text(
-                        "只需三步,立即拿钱",
-                        style: TextStyle(
-                          color: ColorUtils.appWhiteColor,
-                          fontSize: 12,
+                Expanded(
+                  child: Container(),
+                  flex: 1,
+                ),
+                Text(
+                  mode.uv.toString() + "人申请",
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                      color: ColorUtils.appTopAdvertisingTextColor,
+                      fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+          Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: Text(
+                      '最高额度(元）',
+                      style: TextStyle(
+                          color: ColorUtils.appTopAdvertisingTextColor,
+                          fontSize: 12),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: Text(
+                      _getComma(mode.limit),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: ColorUtils.appTopAdvertisingMainTextColor,
+                          fontSize: 32),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 64, left: 64, top: 8),
+                    child: Container(
+                      height: 32,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                              colors: [
+                                ColorUtils.gradientStartColor,
+                                ColorUtils.gradientEndColor
+                              ],
+                              begin: FractionalOffset(1, 0),
+                              end: FractionalOffset(0, 1))),
+                      child: Center(
+                        child: Text(
+                          "只需三步,立即拿钱",
+                          style: TextStyle(
+                            color: ColorUtils.appWhiteColor,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 12),
-                )
-              ],
-            ),
-            Align(
-                alignment: FractionalOffset.centerRight,
-                child: Image.asset(
-                  'images/index_view_topright_new.png',
-                )),
-          ],
-        )
-      ],
-    ),);
+                  Container(
+                    padding: EdgeInsets.only(top: 12),
+                  )
+                ],
+              ),
+              Align(
+                  alignment: FractionalOffset.centerRight,
+                  child: Image.asset(
+                    'images/index_view_topright_new.png',
+                  )),
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   String _getComma(String limit) {
@@ -334,4 +236,5 @@ class AdvertisingNav extends StatelessWidget {
       return limit;
     }
   }
+
 }

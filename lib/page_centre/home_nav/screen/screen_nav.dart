@@ -5,6 +5,7 @@ import 'package:the_fish_fly/model/home_screen_model.dart';
 import 'package:the_fish_fly/page_centre/login_page.dart';
 import 'package:the_fish_fly/utils/color_utils.dart';
 import 'package:the_fish_fly/widget/web_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 class ScreenNav extends StatelessWidget {
   final List<HomeScreem> pagingRowNavList;
 
@@ -36,6 +37,15 @@ class ScreenNav extends StatelessWidget {
     );
   }
 
+  _launch(HomeScreem model){
+    launch(CommonCode.BASE_URL +
+        'Supermarke/' +
+        model.goodsSource +
+        "?id=" +
+        CommonCode.USER_IDInfo +
+        "&frendSource=" +
+        CommonCode.USER_SOURCEInfo);
+  }
   //赋值以及创建具体视图
   Widget _item(BuildContext context, HomeScreem model) {
     return Container(
@@ -47,19 +57,7 @@ class ScreenNav extends StatelessWidget {
             context,
             new MaterialPageRoute(builder: (context) => LoginPage()),
           )
-              : Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => WebView(
-                    url: CommonCode.BASE_URL +
-                        'Supermarke/' +
-                        model.goodsSource +
-                        "?id=" +
-                        CommonCode.USER_IDInfo +
-                        "&frendSource=" +
-                        CommonCode.USER_SOURCEInfo,
-                    title: model.title,
-                  )));
+              :_launch(model);
         },
         child: Container(
           decoration: BoxDecoration(

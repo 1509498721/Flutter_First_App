@@ -1,11 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:the_fish_fly/utils/color_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+
 const CATCH_URLS = ['m.ctrip.com/', 'm.ctrip.com/html5/', 'm.ctrip.com/html5'];
 
 class WebView extends StatefulWidget {
@@ -30,41 +29,7 @@ class WebView extends StatefulWidget {
   _WebViewState createState() => _WebViewState();
 }
 
-// 获取安装地址
-Future<String> get _apkLocalPath async {
-  final directory = await getExternalStorageDirectory();
-  return directory.path;
-}
 
-// 下载
-Future<void> executeDownload(String url) async {
-  final path = await _apkLocalPath;
-  //下载
-  final taskId = await FlutterDownloader.enqueue(
-      url: url + '/' + url.substring(url.length - 8, url.length),
-      savedDir: path,
-      showNotification: true,
-      openFileFromNotification: true);
-  FlutterDownloader.registerCallback((id, status, progress) {
-    // 当下载完成时，调用安装
-    if (taskId == id && status == DownloadTaskStatus.complete) {
-      _installApk(url);
-    }
-  });
-}
-
-// 安装
-Future<Null> _installApk(String url) async {
-  // XXXXX为项目名
-  const platform = const MethodChannel("鱼儿飞");
-  try {
-    final path = await _apkLocalPath;
-    // 调用app地址
-    await platform.invokeMethod('install', {
-      'path': path + '/' + url.substring(url.length - 8, url.length),
-    });
-  } on PlatformException catch (_) {}
-}
 
 class _WebViewState extends State<WebView> {
   final webviewReference = FlutterWebviewPlugin();
@@ -80,35 +45,38 @@ class _WebViewState extends State<WebView> {
   void initState() {
     super.initState();
     webviewReference.close();
-    _onUrlChanged = webviewReference.onUrlChanged.listen((String url) {
-      print(url);
-      urls = url;
-//      if (exiting) {
-//      } else {
-//        if (Platform.isAndroid) {
-//          if (isf == 3) {
-//            // launch(url);
-//            exiting = true;
-//          } else {
-//            isf++;
-//          }
-//        } else {
-//          if (isf == 4) {
-//            // launch(url);
-//            Toast.show('点击浏览器跳转', context);
-//            exiting = true;
-//          } else {
-//            isf++;
-//          }
-//        }
-// }
-      if (url.substring(url.length - 5, url.length) != '.html') {
-        print("不不跳转三方连接");
+    _onUrlChanged = webviewReference.onUrlChanged.listen((String urls) {
+      print(urls);
+      urls = urls;
+      if (exiting) {
+      } else {
+        if (Platform.isAndroid) {
+          if (isf == 3) {
+            launch(urls);
+            exiting = true;
+          } else {
+            isf++;
+          }
+        } else {
+          if (isf == 4) {
+            launch(urls);
+            exiting = true;
+          } else {
+            isf++;
+          }
+        }
+      }
+      if (urls.substring(urls.length - 5, urls.length) != '.html') {
       } else {
         launch(urls);
-//        Toast.show('请使用右上方浏览器按钮打开进行下载', context);
-//        print("跳转三方连接");
-
+      }
+      if (urls.substring(urls.length - 4, urls.length) != '.apk') {
+      } else {
+        launch(widget.url);
+      }
+      if (urls.substring(urls.length - 4, urls.length) != '.ipa') {
+      } else {
+        launch(widget.url);
       }
     });
     _onStateChanged =

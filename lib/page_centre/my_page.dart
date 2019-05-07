@@ -26,9 +26,6 @@ class _MyPageState extends State<MyPage> {
   String _myName = null;
   String _myHead = null;
 
-  String _weixin = null;
-  String _qq = null;
-
   //是否显示商务合作QQ
   var _isShowBusiness = false;
 
@@ -59,7 +56,7 @@ class _MyPageState extends State<MyPage> {
       var modelData = GetServiceModel.fromJson(resJson);
 
       if (modelData.code == "200") {
-        _weixin = modelData.data;
+        CommonCode.USER_WEIXINInfo = modelData.data;
       } else {}
     } catch (e) {
       print("-----" + e.toString());
@@ -79,7 +76,7 @@ class _MyPageState extends State<MyPage> {
       var modelData = GetServiceModel.fromJson(resJson);
 
       if (modelData.code == "200") {
-        _qq = modelData.data;
+        CommonCode.USER_QQInfo = modelData.data;
       } else {}
     } catch (e) {
       print("-----" + e.toString());

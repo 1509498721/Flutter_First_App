@@ -4,10 +4,11 @@ import 'package:the_fish_fly/model/home_screen_model.dart';
 import 'package:the_fish_fly/model/screen_model.dart';
 
 class CommonCode {
-  static final String VERSIONS_CODE = "1.1.3";
+  static final String VERSIONS_CODE = "1.1.4";
   static final int SUCCESS_CODE = 200;
-  static final String BASE_URL = "http://yef.miaojiedao.cn/"; //baseUrl
-  static final String UPDATE_APP = "https://raw.githubusercontent.com/AriesHoo/FastLib/master/apk/___"; //查询APP是否有最新版本
+  static final String BASE_URL = "http://192.168.5.27:8080/"; //baseUrl
+  //static final String BASE_URL = "http://yef.miaojiedao.cn/"; //baseUrl
+  static final String UPDATE_APP = "https://yef.githubusercontent.com/AriesHoo/FastLib/master/apk/___"; //查询APP是否有最新版本
   static final String POST_GET_GOOD_LIST = "Goods/getGoodsList"; //查询产品信息
   static final String POST_GET_PHONE_SMS = "admin/smsPhone"; //获取验证码
   static final String POST_ADMIN_LOGIN = "admin/login"; //输入验证码并登陆
@@ -38,6 +39,9 @@ class CommonCode {
   static  String USER_HEADInfo="";
   static  String USER_IDInfo="";
   static  String USER_SOURCEInfo="";
+
+  static  String USER_QQInfo="";
+  static  String USER_WEIXINInfo="";
 
   static  ScreenModel screenModel;  //筛选
   static  List<HomeScreem> homeScreem;  //筛选

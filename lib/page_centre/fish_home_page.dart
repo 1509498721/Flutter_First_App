@@ -13,6 +13,7 @@ import 'package:the_fish_fly/model/paging_model.dart';
 import 'package:the_fish_fly/model/screen_model.dart';
 import 'package:the_fish_fly/model/versionup_model.dart';
 import 'package:the_fish_fly/page_centre/home_nav/advertising_nav.dart';
+
 import 'package:the_fish_fly/page_centre/home_nav/local_nav.dart';
 import 'package:the_fish_fly/page_centre/home_nav/paging_nav.dart';
 import 'package:the_fish_fly/page_centre/home_nav/screen/screen_more_nav.dart';
@@ -71,14 +72,11 @@ class _FishHomePageState extends State<FishHomePage>
 
   void _initMainAdvertising() async {
     try {
-      final res =
-          await HttpUtil.getInstance().get(CommonCode.GET_INDEX_PRODUCT);
+      final res = await HttpUtil.getInstance().get(CommonCode.GET_INDEX_PRODUCT);
       var modelData = AdvertisingModel.fromJson(res);
       if(advertisingNavList==modelData.goods){
         return;
       }else{
-
-        advertisingNavList.clear();
         advertisingNavList = modelData.goods;
       }
     } catch (e) {
@@ -94,7 +92,6 @@ class _FishHomePageState extends State<FishHomePage>
       if(pagingRowList==modelData.rows) return;
       pagingRowList = modelData.rows;
 
-      print("-------------" + pagingRowList.length.toString());
       _loading = false;
     } catch (e) {
       print("-----分页" + e.toString());
@@ -134,7 +131,6 @@ class _FishHomePageState extends State<FishHomePage>
       if(CommonCode.homeScreem ==  modelData.items) return;
       CommonCode.homeScreem = modelData.items;
       setState(() {});
-      print('----' + modelData.items.length.toString());
     } catch (e) {
     }
   }
@@ -363,7 +359,6 @@ class _FishHomePageState extends State<FishHomePage>
       }
       var modelData = PagingModel.fromJson(resJson);
       searchRowList = modelData.rows;
-      print(searchRowList.length.toString());
     } catch (e) {
       print("-----" + e.toString());
     } finally {
