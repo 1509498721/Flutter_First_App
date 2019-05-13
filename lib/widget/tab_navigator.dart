@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:the_fish_fly/page_centre/fish_home_page.dart';
 import 'package:the_fish_fly/page_centre/my_page.dart';
+import 'package:the_fish_fly/utils/PushManager.dart';
 import 'package:the_fish_fly/utils/color_utils.dart';
 import 'package:the_fish_fly/utils/get_phone_message.dart';
 import 'package:the_fish_fly/utils/shared_preferences_utils.dart';
@@ -27,6 +28,8 @@ class _TabNavigatorState extends State<TabNavigator> {
   Widget build(BuildContext context) {
     Sp.userMessageInput();
     PhoneMessage.statusBarHeight = MediaQuery.of(context).padding.top;
+    PushManager pushManager=new PushManager();
+    pushManager.init();
     return WillPopScope(
       onWillPop: () {
         _pop();
