@@ -74,6 +74,7 @@ flutter:
     - images/qidong_lc.png
     - images/liulanqi.png
     - images/jiantou.png
+    - images/handle_card_2x.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

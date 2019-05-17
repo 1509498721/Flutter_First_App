@@ -282,6 +282,7 @@ class _ScreenTop3NavState extends State<ScreenTop3Nav> {
             Navigator.pop(context);
           },
           child: Container(
+            color: ColorUtils.appWhiteColor,
             padding: EdgeInsets.all(20),
             child: Icon(
               Icons.arrow_back_ios,

@@ -65,6 +65,9 @@ class _FishHomePageState extends State<FishHomePage>
       var modelData = ClassificationModel.fromJson(res);
       if(localNavList==modelData.property) return;
       localNavList = modelData.property;
+      setState(() {
+
+      });
     } catch (e) {
       print("-----四个按钮" + e.toString());
     }
@@ -79,6 +82,9 @@ class _FishHomePageState extends State<FishHomePage>
       }else{
         advertisingNavList = modelData.goods;
       }
+      setState(() {
+
+      });
     } catch (e) {
       print("-----广告" + e.toString());
     }
@@ -93,6 +99,9 @@ class _FishHomePageState extends State<FishHomePage>
       pagingRowList = modelData.rows;
 
       _loading = false;
+      setState(() {
+
+      });
     } catch (e) {
       print("-----分页" + e.toString());
       _loading = false;
@@ -109,7 +118,9 @@ class _FishHomePageState extends State<FishHomePage>
       if(CommonCode.screenModel == modelData) return;
 
       CommonCode.screenModel = modelData;
+      setState(() {
 
+      });
     } catch (e) {
       print("-----筛选" + e.toString());
     }
@@ -177,6 +188,9 @@ class _FishHomePageState extends State<FishHomePage>
               });
         }
       }
+      setState(() {
+
+      });
     } catch (e) {
       print("-----" + e.toString());
     }

@@ -282,6 +282,7 @@ class _ScreenTop4NavState extends State<ScreenTop4Nav> {
             Navigator.pop(context);
           },
           child: Container(
+            color: ColorUtils.appWhiteColor,
             padding: EdgeInsets.all(20),
             child: Icon(
               Icons.arrow_back_ios,

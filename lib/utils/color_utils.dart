@@ -23,6 +23,8 @@ class ColorUtils{
   static var appLoginBacColor =  Color(0xFFFC8535);
   static var gradientStartColor=Color(0xFFFD5F2D);
   static var gradientEndColor=Color(0xFFFC8838);
+  static var bankCardMainColor=Color(0xFFFE562A);
+
   static var gradientEnd14Color=Color(0xFFFFF3EB);
   static var gradientEnd13Color=Color(0xFFF2F2F2);
 

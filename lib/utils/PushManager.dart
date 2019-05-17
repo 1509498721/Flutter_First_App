@@ -11,7 +11,7 @@ class PushManager {
   }
 
   static PushManager _instance;
-  static String appKey = 'efc2f808fadd15339b95ac41';
+  static String appKey = 'c8e3f2b892edfb58a4c34d91';
   static bool isProduction = false;
   static bool isDebug = true; 
   static JPush jpush = new JPush();
@@ -28,22 +28,21 @@ class PushManager {
       sound: true,
       alert: true,
       badge: true));
-
     jpush.addEventHandler(
       onReceiveNotification: (Map<String, dynamic> message) async {
         print("flutter onReceiveNotification: $message");
         if(Platform.isIOS){
-          Fluttertoast.showToast(msg: message['aps']['alert'],gravity: ToastGravity.CENTER);
+       //   Fluttertoast.showToast(msg: message['aps']['alert'],gravity: ToastGravity.CENTER);
         }else if(Platform.isAndroid){
-          Fluttertoast.showToast(msg: message['alert'],gravity: ToastGravity.CENTER);
+         // Fluttertoast.showToast(msg: message['alert'],gravity: ToastGravity.CENTER);
         }
       },
       onOpenNotification: (Map<String, dynamic> message) async {
         print("flutter onOpenNotification: $message");
         if(Platform.isIOS){
-          Fluttertoast.showToast(msg: message['aps']['alert'],gravity: ToastGravity.CENTER);
+         // Fluttertoast.showToast(msg: message['aps']['alert'],gravity: ToastGravity.CENTER);
         }else if(Platform.isAndroid){
-          Fluttertoast.showToast(msg: message['alert'],gravity: ToastGravity.CENTER);
+         // Fluttertoast.showToast(msg: message['alert'],gravity: ToastGravity.CENTER);
         }
       },
       onReceiveMessage: (Map<String, dynamic> message) async {

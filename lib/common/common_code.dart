@@ -6,8 +6,8 @@ import 'package:the_fish_fly/model/screen_model.dart';
 class CommonCode {
   static final String VERSIONS_CODE = "1.1.4";
   static final int SUCCESS_CODE = 200;
- //static final String BASE_URL = "http://192.168.5.27:8080/"; //baseUrl
-  static final String BASE_URL = "http://yef.miaojiedao.cn/"; //baseUrl
+  static final String BASE_URL = "http://192.168.5.19:8081/"; //baseUrl
+  //static final String BASE_URL = "http://yuerfei.miaojiedao.cn/"; //baseUrl
   //static final String UPDATE_APP = "https://yef.githubusercontent.com/AriesHoo/FastLib/master/apk/___"; //查询APP是否有最新版本
   static final String POST_GET_GOOD_LIST = "Goods/getGoodsList"; //查询产品信息
   static final String POST_GET_PHONE_SMS = "admin/smsPhone"; //获取验证码
@@ -21,6 +21,11 @@ class CommonCode {
   static final String GET_PAGE_GOODS_LIST = "APP/getPageGoodsList"; //分页获取首页list
   static final String POST_PAGE_SELECTDETAIL = "goodsDetail/selectDetail"; //商品详情
   static final String POST_VERSION_SELECTDETAIL = "versionUpgrade/selectVersion"; //版本更新
+  static final String POST_GET_ADVERTISING = "Bank/getAdvertising"; //银行卡广告位接口
+  static final String POST_BANKCLASSIFY = "Bank/bankClassify"; //银行卡热门
+  static final String POST_BANKLIST = "Bank/getPageBankList"; //银行卡推荐
+  static final String POST_GETADVERTISINGCARD = "Bank/getAdvertisingCard"; //银行卡推荐
+
 
   static final String POST_GET_WEIXIN = "APP/getWeixin"; //获取微信公众号
   static final String POST_GET_QQ = "APP/getQQ"; //获取QQ客服

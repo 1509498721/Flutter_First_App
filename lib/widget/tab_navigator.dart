@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:the_fish_fly/page_centre/fish_home_page.dart';
+import 'package:the_fish_fly/page_centre/handle_card.dart';
 import 'package:the_fish_fly/page_centre/my_page.dart';
 import 'package:the_fish_fly/utils/PushManager.dart';
 import 'package:the_fish_fly/utils/color_utils.dart';
@@ -39,7 +40,7 @@ class _TabNavigatorState extends State<TabNavigator> {
         body: PageView(
           physics: NeverScrollableScrollPhysics(),
           controller: _controller,
-          children: <Widget>[FishHomePage(), MyPage()],
+          children: <Widget>[FishHomePage(),HandleCardPage(), MyPage()],
         ),
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
@@ -88,7 +89,7 @@ class _TabNavigatorState extends State<TabNavigator> {
                     padding: EdgeInsets.only(top: 8),
                     child: Column(
                       children: <Widget>[
-                        Text("我的",
+                        Text("办卡",
                             style: TextStyle(
                                 height: 0,
                                 color: _currentIndex != 1
@@ -99,6 +100,34 @@ class _TabNavigatorState extends State<TabNavigator> {
                           padding: EdgeInsets.only(top: 12),
                           child: Offstage(
                             offstage: _currentIndex != 1 ? true : false, //这里控制
+                            child: Container(
+                              width: 30,
+                              color: ColorUtils.appTopAdvertisingMainTextColor,
+                              height: 3,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              BottomNavigationBarItem(
+                  icon: new Container(),
+                  activeIcon: new Container(),
+                  title: Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: Column(
+                      children: <Widget>[
+                        Text("我的",
+                            style: TextStyle(
+                                height: 0,
+                                color: _currentIndex != 2
+                                    ? _defaultColor
+                                    : _activeColor,
+                                fontSize: 14)),
+                        Padding(
+                          padding: EdgeInsets.only(top: 12),
+                          child: Offstage(
+                            offstage: _currentIndex != 2 ? true : false, //这里控制
                             child: Container(
                               width: 30,
                               color: ColorUtils.appTopAdvertisingMainTextColor,

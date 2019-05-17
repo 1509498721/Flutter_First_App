@@ -1,23 +1,18 @@
-class BankAdvertisingModel {
+class BankDetailedModel {
   String code;
   String result;
   String message;
   int errno;
-  List<BankAdvertisingData> data;
+  BankDetailedData data;
 
-  BankAdvertisingModel({this.code, this.result, this.message, this.errno, this.data});
+  BankDetailedModel({this.code, this.result, this.message, this.errno, this.data});
 
-  BankAdvertisingModel.fromJson(Map<String, dynamic> json) {
+  BankDetailedModel.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     result = json['result'];
     message = json['message'];
     errno = json['errno'];
-    if (json['data'] != null) {
-      data = new List<BankAdvertisingData>();
-      json['data'].forEach((v) {
-        data.add(new BankAdvertisingData.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new BankDetailedData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -27,13 +22,39 @@ class BankAdvertisingModel {
     data['message'] = this.message;
     data['errno'] = this.errno;
     if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+      data['data'] = this.data.toJson();
     }
     return data;
   }
 }
 
-class BankAdvertisingData {
+class BankDetailedData {
+  int total;
+  List<BankDetailedRows> rows;
+
+  BankDetailedData({this.total, this.rows});
+
+  BankDetailedData.fromJson(Map<String, dynamic> json) {
+    total = json['total'];
+    if (json['rows'] != null) {
+      rows = new List<BankDetailedRows>();
+      json['rows'].forEach((v) {
+        rows.add(new BankDetailedRows.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['total'] = this.total;
+    if (this.rows != null) {
+      data['rows'] = this.rows.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class BankDetailedRows {
   int id;
   String title;
   int cardcategoryid;
@@ -45,17 +66,17 @@ class BankAdvertisingData {
   String url;
   int status;
   String addTime;
-  int statuscode;
+  Null statuscode;
   int pv;
   int uv;
   String uvEarnings;
-  int adminid;
-  String click;
-  int auditfailed;
+  Null adminid;
+  Null click;
+  Null auditfailed;
   String shorturl;
-  String welfare;
+  Null welfare;
 
-  BankAdvertisingData(
+  BankDetailedRows(
       {this.id,
         this.title,
         this.cardcategoryid,
@@ -77,7 +98,7 @@ class BankAdvertisingData {
         this.shorturl,
         this.welfare});
 
-  BankAdvertisingData.fromJson(Map<String, dynamic> json) {
+  BankDetailedRows.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     cardcategoryid = json['cardcategoryid'];

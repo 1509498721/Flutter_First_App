@@ -39,7 +39,6 @@ class _WebViewState extends State<WebView> {
   bool exiting = false;
   int isf = 0;
   String urls = "";
-  bool _isShow = false;
 
   @override
   void initState() {
@@ -47,37 +46,37 @@ class _WebViewState extends State<WebView> {
     webviewReference.close();
     _onUrlChanged = webviewReference.onUrlChanged.listen((String urls) {
       print(urls);
-      urls = urls;
-      if (exiting) {
-      } else {
-        if (Platform.isAndroid) {
-          if (isf == 3) {
-            launch(urls);
-            exiting = true;
-          } else {
-            isf++;
-          }
-        } else {
-          if (isf == 4) {
-            launch(urls);
-            exiting = true;
-          } else {
-            isf++;
-          }
-        }
-      }
-      if (urls.substring(urls.length - 5, urls.length) != '.html') {
-      } else {
-        launch(urls);
-      }
-      if (urls.substring(urls.length - 4, urls.length) != '.apk') {
-      } else {
-        launch(widget.url);
-      }
-      if (urls.substring(urls.length - 4, urls.length) != '.ipa') {
-      } else {
-        launch(widget.url);
-      }
+//      urls = urls;
+//      if (exiting) {
+//      } else {
+//        if (Platform.isAndroid) {
+//          if (isf == 3) {
+//            launch(urls);
+//            exiting = true;
+//          } else {
+//            isf++;
+//          }
+//        } else {
+//          if (isf == 4) {
+//            launch(urls);
+//            exiting = true;
+//          } else {
+//            isf++;
+//          }
+//        }
+//      }
+//      if (urls.substring(urls.length - 5, urls.length) != '.html') {
+//      } else {
+//        launch(urls);
+//      }
+//      if (urls.substring(urls.length - 4, urls.length) != '.apk') {
+//      } else {
+//        launch(widget.url);
+//      }
+//      if (urls.substring(urls.length - 4, urls.length) != '.ipa') {
+//      } else {
+//        launch(widget.url);
+//      }
     });
     _onStateChanged =
         webviewReference.onStateChanged.listen((WebViewStateChanged state) {
@@ -169,6 +168,7 @@ class _WebViewState extends State<WebView> {
                 Navigator.pop(context);
               },
               child: Container(
+                color: ColorUtils.appWhiteColor,
                 padding: EdgeInsets.all(10),
                 child: Icon(
                   Icons.arrow_back,

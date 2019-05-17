@@ -281,6 +281,7 @@ class _ScreenTop1NavState extends State<ScreenTop1Nav> {
             Navigator.pop(context);
           },
           child: Container(
+            color: ColorUtils.appWhiteColor,
             padding: EdgeInsets.all(20),
             child: Icon(
               Icons.arrow_back_ios,
